@@ -19,10 +19,14 @@ function ShowPokemon(props:PokemonsList){
                 const pokemons = res.data;
                 setPokemon(pokemons);
             })
-    },[])
+    },[props.pokemon])
+    const type = pokemon.types.map((e) => {
+        return e.type.name
+    })
+
 
     return(
-        <div className='pokemonCard' onClick={()=>props.current(pokemon)}>
+        <div className={''} onClick={()=>props.current(pokemon)}>
             <img className='pokemonImage' alt={pokemon.name} src={pokemon.sprites.front_default}/>
             <h2>{pokemon.name}</h2>
             <div className='pokemonTypes'>{pokemon.types.map((e) => {
@@ -30,7 +34,6 @@ function ShowPokemon(props:PokemonsList){
                     <div className='pokemonType'>{e.type.name}</div>
                 )
             })}</div>
-
         </div>
     )
 }

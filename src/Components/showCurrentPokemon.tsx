@@ -2,7 +2,7 @@ import currentPokemon from "../Interfaces/currentPokemon";
 
 
 function ShowCurrentPokemon(props:currentPokemon){
-    console.log(props.currentPokemon)
+
     return(
         <>
             <img src={props.currentPokemon.sprites.front_default}/>

@@ -7,6 +7,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   width:60%;
+  justify-content: center;
 }
 .pokemonCard{
   margin: 0 15px 10px;
@@ -29,3 +30,19 @@
   border: 1px solid black;
   width:30%
 }
+.loadButtons{
+  width:40%;
+  display: flex;
+  justify-content: space-between;
+}
+.navButton{
+  border-radius: 40px;
+  height: 30px;
+  width:70px;
+  background-color: deepskyblue;
+  color: white;
+  border: none;
+}:disabled{
+  background: cyan;
+}
+
