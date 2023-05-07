@@ -1,0 +1,10 @@
+.pokemonImage{
+    width: 70%;
+}
+.pokemonTypes{
+    display: flex;
+    flex-direction: row;
+}
+.pokemonType{
+    padding: 0 5px 10px;
+}
