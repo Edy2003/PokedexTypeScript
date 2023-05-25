@@ -14,13 +14,6 @@ function App() {
   const [arrPokemon,setArrPokemon]=useState<string[]>(['']);
   const [loaded,setLoaded]=useState<boolean>(false);
   const [visibility,setVisibility]=useState<boolean>(false);
-    const [pokemon,setPokemon]=useState<Pokemon>({
-        name:'',
-        sprites:{front_default:''},
-        types:[{slot:0,type:{name:''}}],
-        id:0,
-        stats:[{name:'',base_stat:0}]
-    });
   const [currentPokemon,setCurrentPokemon]=useState<Pokemon>({
       name:'',
       sprites:{front_default:''},
@@ -61,18 +54,21 @@ function App() {
       setCurrentPokemon(i);
   }
 
-    useEffect(()=>{
 
-    },[filter])
 
     const filterPokemons = (i:Pokemon) =>{
-        const types = (pokemon.types.map((e)=>{return e.type.name}));
+        const types = (i.types.map((e)=>{return e.type.name}));
         types.forEach((e)=> {
             if (e === filter) {
-                console.log (pokemon)
+                console.log (i);
+                console.log (filter);
             }
         })
     }
+
+    // useEffect(()=>{
+    //
+    // },[filter])
   return (
       <>
           <div className="filter">
@@ -81,9 +77,7 @@ function App() {
               <button onClick={()=>setFilter('poison')}>Poison</button>
           </div>
           <div className='container'>
-
               <div className='pokemonsList'>
-
                   {loaded? arrPokemon.map((e,index) =>
                       <ShowPokemon key={index} pokemon={e}
                                    current={showCurrentPokemon}

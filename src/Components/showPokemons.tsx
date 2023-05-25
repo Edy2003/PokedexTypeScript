@@ -27,7 +27,7 @@ function ShowPokemon(props:PokemonsList){
 
     useEffect( ()=> {
         if (loaded) {
-            props.filter(pokemon)
+            props.filter(pokemon);
         }
     },[pokemon])
 
