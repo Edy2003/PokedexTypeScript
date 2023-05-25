@@ -65,7 +65,7 @@ function App() {
 
     },[filter])
 
-    const filterPokemons = () =>{
+    const filterPokemons = (i:Pokemon) =>{
         const types = (pokemon.types.map((e)=>{return e.type.name}));
         types.forEach((e)=> {
             if (e === filter) {
@@ -87,7 +87,7 @@ function App() {
                   {loaded? arrPokemon.map((e,index) =>
                       <ShowPokemon key={index} pokemon={e}
                                    current={showCurrentPokemon}
-                                   filter={pokemon}
+                                   filter={filterPokemons}
                                    index={index}
                       />
                   ):<></>}
