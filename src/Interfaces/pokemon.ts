@@ -3,7 +3,7 @@ interface Pokemon{
     sprites: {
         front_default:string;
     };
-    types:[{type: { name:string }}];
+    types:[{slot:number, type:{ name:string}}];
     id:number;
     stats:[stat:{name:string,base_stat:number}]
 }

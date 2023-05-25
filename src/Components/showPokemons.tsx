@@ -9,9 +9,11 @@ function ShowPokemon(props:PokemonsList){
     const[pokemon,setPokemon]=useState<Pokemon>({
         name:'',
         sprites:{front_default:''},
-        types:[{type:{name:''}}],
+        types:[{slot:0,type:{name:''}}],
         id:0,
-        stats:[{name:'',base_stat:0}]});
+        stats:[{name:'',base_stat:0}]
+    });
+    const [loaded,setLoaded]=useState<boolean>(false);
 
     useEffect(() => {
         axios.get(props.pokemon)
@@ -19,19 +21,23 @@ function ShowPokemon(props:PokemonsList){
                 const pokemons = res.data;
                 setPokemon(pokemons);
             })
+        setLoaded(true)
     },[props.pokemon])
-    const type = pokemon.types.map((e) => {
-        return e.type.name
-    })
 
+
+    useEffect( ()=> {
+        if (loaded) {
+            props.filter(pokemon)
+        }
+    },[pokemon])
 
     return(
-        <div className={''} onClick={()=>props.current(pokemon)}>
+        <div className='pokemonCard'  onClick={()=>props.current(pokemon)} key={pokemon.id}>
             <img className='pokemonImage' alt={pokemon.name} src={pokemon.sprites.front_default}/>
             <h2>{pokemon.name}</h2>
             <div className='pokemonTypes'>{pokemon.types.map((e) => {
                 return(
-                    <div className='pokemonType'>{e.type.name}</div>
+                    <div key={e.slot} className='pokemonType'>{e.type.name}</div>
                 )
             })}</div>
         </div>
