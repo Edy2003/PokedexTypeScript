@@ -24,7 +24,8 @@ function App() {
   const[first,setFirst]=useState<number>(0);
   const[second,setSecond]=useState<number>(9);
 
-  const [filter,setFilter]=useState<string>('');
+  const [filter,setFilter]=useState<string>('fire');
+  //const [filteredPokemons,setFilteredPokemons]=useState<Pokemon[]>([]);
 
   useEffect (()=>{
     axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=27`)
@@ -56,19 +57,16 @@ function App() {
 
 
 
-    const filterPokemons = (i:Pokemon) =>{
-        const types = (i.types.map((e)=>{return e.type.name}));
-        types.forEach((e)=> {
-            if (e === filter) {
-                console.log (i);
-                console.log (filter);
-            }
-        })
-    }
-
-    // useEffect(()=>{
+    // const filterPokemons = (i:Pokemon) =>{
+    //     const types = (i.types.map((e)=>{return e.type.name}));
+    //     types.forEach((e)=> {
+    //         if (e === filter) {
     //
-    // },[filter])
+    //         }
+    //     })
+    // }
+
+
   return (
       <>
           <div className="filter">
@@ -81,7 +79,7 @@ function App() {
                   {loaded? arrPokemon.map((e,index) =>
                       <ShowPokemon key={index} pokemon={e}
                                    current={showCurrentPokemon}
-                                   filter={filterPokemons}
+                                   filter={filter}
                                    index={index}
                       />
                   ):<></>}

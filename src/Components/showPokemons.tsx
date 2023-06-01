@@ -14,6 +14,14 @@ function ShowPokemon(props:PokemonsList){
         stats:[{name:'',base_stat:0}]
     });
     const [loaded,setLoaded]=useState<boolean>(false);
+    const [types,setTypes]=useState<string[]>(['']);
+    const [filteredPokemons,setFiltered]=useState<Pokemon>({
+        name:'',
+        sprites:{front_default:''},
+        types:[{slot:0,type:{name:''}}],
+        id:0,
+        stats:[{name:'',base_stat:0}]
+    })
 
     useEffect(() => {
         axios.get(props.pokemon)
@@ -22,25 +30,45 @@ function ShowPokemon(props:PokemonsList){
                 setPokemon(pokemons);
             })
         setLoaded(true)
-    },[props.pokemon])
+    },[props.filter])
 
+    useEffect(()=>{
+        setTypes(pokemon.types.map((e)=>{return (e.type.name)}))
+        types.forEach((e)=> {
+            if (e === props.filter) {
+                setFiltered(pokemon)
+            }
+        })
+    },[props.filter])
 
-    useEffect( ()=> {
-        if (loaded) {
-            props.filter(pokemon);
-        }
-    },[pokemon])
 
     return(
-        <div className='pokemonCard'  onClick={()=>props.current(pokemon)} key={pokemon.id}>
-            <img className='pokemonImage' alt={pokemon.name} src={pokemon.sprites.front_default}/>
-            <h2>{pokemon.name}</h2>
-            <div className='pokemonTypes'>{pokemon.types.map((e) => {
-                return(
-                    <div key={e.slot} className='pokemonType'>{e.type.name}</div>
-                )
-            })}</div>
-        </div>
+        <>
+            {/*{loaded? types.forEach((e)=> {
+                if (e === props.filter) {
+                    return (
+                        <div className='pokemonCard' onClick={() => props.current(pokemon)} key={pokemon.id}>
+                        <img className='pokemonImage' alt={pokemon.name} src={pokemon.sprites.front_default}/>
+                        <h2>{pokemon.name}</h2>
+                            <div className='pokemonTypes'>
+                                {pokemon.types.map((e) => {
+                                return (
+                                    <div key={e.slot} className='pokemonType'>{e.type.name}</div>
+                                )})}
+                            </div>
+                        </div>
+                    )}}):<></>}*/}
+            {loaded? <div className='pokemonCard' onClick={() => props.current(filteredPokemons)} key={filteredPokemons.id}>
+                <img className='pokemonImage' alt={filteredPokemons.name} src={filteredPokemons.sprites.front_default}/>
+                <h2>{filteredPokemons.name}</h2>
+                <div className='pokemonTypes'>
+                    {filteredPokemons.types.map((e) => {
+                        return (
+                            <div key={e.slot} className='pokemonType'>{e.type.name}</div>
+                        )})}
+                </div>
+            </div>:<></>}
+        </>
     )
 }
 
